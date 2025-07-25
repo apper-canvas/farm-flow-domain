@@ -12,11 +12,14 @@ class FarmService {
     try {
       const params = {
         fields: [
-          { field: { Name: "Name" } },
+{ field: { Name: "Name" } },
           { field: { Name: "size_c" } },
           { field: { Name: "size_unit_c" } },
           { field: { Name: "location_c" } },
-          { field: { Name: "created_at_c" } }
+          { field: { Name: "created_at_c" } },
+          { field: { Name: "soil_type_c" } },
+          { field: { Name: "farm_type_c" } },
+          { field: { Name: "notes_c" } }
         ],
         orderBy: [
           { fieldName: "Id", sorttype: "DESC" }
@@ -31,13 +34,16 @@ class FarmService {
       }
 
       // Transform data to match UI expectations
-      return response.data.map(farm => ({
+return response.data.map(farm => ({
         Id: farm.Id,
         name: farm.Name,
         size: farm.size_c,
         sizeUnit: farm.size_unit_c,
         location: farm.location_c,
-        createdAt: farm.created_at_c
+        createdAt: farm.created_at_c,
+        soilType: farm.soil_type_c,
+        farmType: farm.farm_type_c,
+        notes: farm.notes_c
       }));
     } catch (error) {
       if (error?.response?.data?.message) {
@@ -53,12 +59,15 @@ class FarmService {
   async getById(recordId) {
     try {
       const params = {
-        fields: [
+fields: [
           { field: { Name: "Name" } },
           { field: { Name: "size_c" } },
           { field: { Name: "size_unit_c" } },
           { field: { Name: "location_c" } },
-          { field: { Name: "created_at_c" } }
+          { field: { Name: "created_at_c" } },
+          { field: { Name: "soil_type_c" } },
+          { field: { Name: "farm_type_c" } },
+          { field: { Name: "notes_c" } }
         ]
       };
 
@@ -71,13 +80,16 @@ class FarmService {
 
       // Transform data to match UI expectations
       const farm = response.data;
-      return {
+return {
         Id: farm.Id,
         name: farm.Name,
         size: farm.size_c,
         sizeUnit: farm.size_unit_c,
         location: farm.location_c,
-        createdAt: farm.created_at_c
+        createdAt: farm.created_at_c,
+        soilType: farm.soil_type_c,
+        farmType: farm.farm_type_c,
+        notes: farm.notes_c
       };
     } catch (error) {
       if (error?.response?.data?.message) {
@@ -93,12 +105,15 @@ class FarmService {
   async create(farmData) {
     try {
       const params = {
-        records: [{
+records: [{
           Name: farmData.name,
           size_c: farmData.size,
           size_unit_c: farmData.sizeUnit,
           location_c: farmData.location,
-          created_at_c: new Date().toISOString()
+          created_at_c: new Date().toISOString(),
+          soil_type_c: farmData.soilType,
+          farm_type_c: farmData.farmType,
+          notes_c: farmData.notes
         }]
       };
 
@@ -125,13 +140,16 @@ class FarmService {
         
         if (successfulRecords.length > 0) {
           const farm = successfulRecords[0].data;
-          return {
+return {
             Id: farm.Id,
             name: farm.Name,
             size: farm.size_c,
             sizeUnit: farm.size_unit_c,
             location: farm.location_c,
-            createdAt: farm.created_at_c
+            createdAt: farm.created_at_c,
+            soilType: farm.soil_type_c,
+            farmType: farm.farm_type_c,
+            notes: farm.notes_c
           };
         }
       }
@@ -149,12 +167,15 @@ class FarmService {
   async update(id, farmData) {
     try {
       const params = {
-        records: [{
+records: [{
           Id: parseInt(id),
           Name: farmData.name,
           size_c: farmData.size,
           size_unit_c: farmData.sizeUnit,
-          location_c: farmData.location
+          location_c: farmData.location,
+          soil_type_c: farmData.soilType,
+          farm_type_c: farmData.farmType,
+          notes_c: farmData.notes
         }]
       };
 
@@ -181,13 +202,16 @@ class FarmService {
         
         if (successfulUpdates.length > 0) {
           const farm = successfulUpdates[0].data;
-          return {
+return {
             Id: farm.Id,
             name: farm.Name,
             size: farm.size_c,
             sizeUnit: farm.size_unit_c,
             location: farm.location_c,
-            createdAt: farm.created_at_c
+            createdAt: farm.created_at_c,
+            soilType: farm.soil_type_c,
+            farmType: farm.farm_type_c,
+            notes: farm.notes_c
           };
         }
       }

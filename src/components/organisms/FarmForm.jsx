@@ -6,21 +6,27 @@ import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
 
 const FarmForm = ({ farm, onSubmit, onCancel }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     name: "",
     size: "",
     sizeUnit: "acres",
-    location: ""
+    location: "",
+    soilType: "",
+    farmType: "",
+    notes: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
     if (farm) {
       setFormData({
         name: farm.name,
         size: farm.size.toString(),
         sizeUnit: farm.sizeUnit,
-        location: farm.location
+        location: farm.location,
+        soilType: farm.soilType || "",
+        farmType: farm.farmType || "",
+        notes: farm.notes || ""
       });
     }
   }, [farm]);
@@ -28,19 +34,21 @@ const FarmForm = ({ farm, onSubmit, onCancel }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    try {
+try {
       await onSubmit({
         ...formData,
         size: parseFloat(formData.size)
       });
       
-      if (!farm) {
+if (!farm) {
         setFormData({
           name: "",
           size: "",
           sizeUnit: "acres",
-          location: ""
+          location: "",
+          soilType: "",
+          farmType: "",
+          notes: ""
         });
       }
     } finally {
@@ -108,8 +116,7 @@ return (
                 <option value="square-meters">Square Meters</option>
               </Select>
             </div>
-
-            <Input
+<Input
               label="Location"
               name="location"
               value={formData.location}
@@ -118,6 +125,42 @@ return (
               required
             />
 
+            <Select
+              label="Soil Type"
+              name="soilType"
+              value={formData.soilType}
+              onChange={handleChange}
+              options={[
+                { value: "", label: "Select soil type" },
+                { value: "clay", label: "Clay" },
+                { value: "sandy", label: "Sandy" },
+                { value: "loamy", label: "Loamy" }
+              ]}
+            />
+
+            <Select
+              label="Farm Type"
+              name="farmType"
+              value={formData.farmType}
+              onChange={handleChange}
+              options={[
+                { value: "", label: "Select farm type" },
+                { value: "crop farm", label: "Crop Farm" },
+                { value: "dairy", label: "Dairy" },
+                { value: "poultry", label: "Poultry" },
+                { value: "mixed-use", label: "Mixed-use" }
+              ]}
+            />
+
+            <Input
+              label="Notes"
+              name="notes"
+              value={formData.notes}
+              onChange={handleChange}
+              placeholder="Additional notes about the farm..."
+              as="textarea"
+              rows={3}
+            />
             <div className="flex justify-end space-x-3 pt-4">
               {onCancel && (
                 <Button type="button" variant="secondary" onClick={onCancel}>
