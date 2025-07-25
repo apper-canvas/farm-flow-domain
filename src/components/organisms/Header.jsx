@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
-
+import LogoutButton from "@/components/atoms/LogoutButton";
 const Header = ({ title, onMenuClick, showMenu = true }) => {
   return (
     <header className="bg-white border-b border-gray-200 px-4 py-4 lg:px-6">
@@ -23,7 +23,7 @@ const Header = ({ title, onMenuClick, showMenu = true }) => {
           </div>
         </div>
         
-        <div className="flex items-center space-x-4">
+<div className="flex items-center space-x-4">
           <div className="hidden sm:flex items-center space-x-2 text-sm text-gray-600">
             <ApperIcon name="Calendar" className="w-4 h-4" />
             <span>{new Date().toLocaleDateString("en-US", { 
@@ -33,6 +33,7 @@ const Header = ({ title, onMenuClick, showMenu = true }) => {
               day: "numeric" 
             })}</span>
           </div>
+          <LogoutButton />
         </div>
       </div>
     </header>

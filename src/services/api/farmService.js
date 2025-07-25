@@ -1,57 +1,242 @@
-import farmsData from "@/services/mockData/farms.json";
-
 class FarmService {
   constructor() {
-    this.farms = [...farmsData];
+    const { ApperClient } = window.ApperSDK;
+    this.apperClient = new ApperClient({
+      apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+      apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+    });
+    this.tableName = 'farm_c';
   }
 
   async getAll() {
-    await this.delay(300);
-    return [...this.farms];
+    try {
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "size_c" } },
+          { field: { Name: "size_unit_c" } },
+          { field: { Name: "location_c" } },
+          { field: { Name: "created_at_c" } }
+        ],
+        orderBy: [
+          { fieldName: "Id", sorttype: "DESC" }
+        ]
+      };
+
+      const response = await this.apperClient.fetchRecords(this.tableName, params);
+      
+      if (!response.success) {
+        console.error("Error fetching farms:", response.message);
+        throw new Error(response.message);
+      }
+
+      // Transform data to match UI expectations
+      return response.data.map(farm => ({
+        Id: farm.Id,
+        name: farm.Name,
+        size: farm.size_c,
+        sizeUnit: farm.size_unit_c,
+        location: farm.location_c,
+        createdAt: farm.created_at_c
+      }));
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error fetching farms:", error?.response?.data?.message);
+        throw new Error(error?.response?.data?.message);
+      } else {
+        console.error("Error fetching farms:", error.message);
+        throw error;
+      }
+    }
   }
 
-  async getById(id) {
-    await this.delay(200);
-    const farm = this.farms.find(f => f.Id === parseInt(id));
-    if (!farm) {
-      throw new Error("Farm not found");
+  async getById(recordId) {
+    try {
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "size_c" } },
+          { field: { Name: "size_unit_c" } },
+          { field: { Name: "location_c" } },
+          { field: { Name: "created_at_c" } }
+        ]
+      };
+
+      const response = await this.apperClient.getRecordById(this.tableName, recordId, params);
+      
+      if (!response.success) {
+        console.error("Error fetching farm:", response.message);
+        throw new Error(response.message);
+      }
+
+      // Transform data to match UI expectations
+      const farm = response.data;
+      return {
+        Id: farm.Id,
+        name: farm.Name,
+        size: farm.size_c,
+        sizeUnit: farm.size_unit_c,
+        location: farm.location_c,
+        createdAt: farm.created_at_c
+      };
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error fetching farm:", error?.response?.data?.message);
+        throw new Error(error?.response?.data?.message);
+      } else {
+        console.error("Error fetching farm:", error.message);
+        throw error;
+      }
     }
-    return { ...farm };
   }
 
   async create(farmData) {
-    await this.delay(400);
-    const newFarm = {
-      ...farmData,
-      Id: Math.max(...this.farms.map(f => f.Id), 0) + 1,
-      createdAt: new Date().toISOString()
-    };
-    this.farms.push(newFarm);
-    return { ...newFarm };
+    try {
+      const params = {
+        records: [{
+          Name: farmData.name,
+          size_c: farmData.size,
+          size_unit_c: farmData.sizeUnit,
+          location_c: farmData.location,
+          created_at_c: new Date().toISOString()
+        }]
+      };
+
+      const response = await this.apperClient.createRecord(this.tableName, params);
+      
+      if (!response.success) {
+        console.error("Error creating farm:", response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.results) {
+        const successfulRecords = response.results.filter(result => result.success);
+        const failedRecords = response.results.filter(result => !result.success);
+        
+        if (failedRecords.length > 0) {
+          console.error(`Failed to create ${failedRecords.length} farm records:${JSON.stringify(failedRecords)}`);
+          failedRecords.forEach(record => {
+            record.errors?.forEach(error => {
+              throw new Error(`${error.fieldLabel}: ${error.message}`);
+            });
+            if (record.message) throw new Error(record.message);
+          });
+        }
+        
+        if (successfulRecords.length > 0) {
+          const farm = successfulRecords[0].data;
+          return {
+            Id: farm.Id,
+            name: farm.Name,
+            size: farm.size_c,
+            sizeUnit: farm.size_unit_c,
+            location: farm.location_c,
+            createdAt: farm.created_at_c
+          };
+        }
+      }
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error creating farm:", error?.response?.data?.message);
+        throw new Error(error?.response?.data?.message);
+      } else {
+        console.error("Error creating farm:", error.message);
+        throw error;
+      }
+    }
   }
 
   async update(id, farmData) {
-    await this.delay(350);
-    const index = this.farms.findIndex(f => f.Id === parseInt(id));
-    if (index === -1) {
-      throw new Error("Farm not found");
+    try {
+      const params = {
+        records: [{
+          Id: parseInt(id),
+          Name: farmData.name,
+          size_c: farmData.size,
+          size_unit_c: farmData.sizeUnit,
+          location_c: farmData.location
+        }]
+      };
+
+      const response = await this.apperClient.updateRecord(this.tableName, params);
+      
+      if (!response.success) {
+        console.error("Error updating farm:", response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.results) {
+        const successfulUpdates = response.results.filter(result => result.success);
+        const failedUpdates = response.results.filter(result => !result.success);
+        
+        if (failedUpdates.length > 0) {
+          console.error(`Failed to update ${failedUpdates.length} farm records:${JSON.stringify(failedUpdates)}`);
+          failedUpdates.forEach(record => {
+            record.errors?.forEach(error => {
+              throw new Error(`${error.fieldLabel}: ${error.message}`);
+            });
+            if (record.message) throw new Error(record.message);
+          });
+        }
+        
+        if (successfulUpdates.length > 0) {
+          const farm = successfulUpdates[0].data;
+          return {
+            Id: farm.Id,
+            name: farm.Name,
+            size: farm.size_c,
+            sizeUnit: farm.size_unit_c,
+            location: farm.location_c,
+            createdAt: farm.created_at_c
+          };
+        }
+      }
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error updating farm:", error?.response?.data?.message);
+        throw new Error(error?.response?.data?.message);
+      } else {
+        console.error("Error updating farm:", error.message);
+        throw error;
+      }
     }
-    this.farms[index] = { ...this.farms[index], ...farmData };
-    return { ...this.farms[index] };
   }
 
-  async delete(id) {
-    await this.delay(300);
-    const index = this.farms.findIndex(f => f.Id === parseInt(id));
-    if (index === -1) {
-      throw new Error("Farm not found");
-    }
-    this.farms.splice(index, 1);
-    return true;
-  }
+  async delete(recordId) {
+    try {
+      const params = {
+        RecordIds: [parseInt(recordId)]
+      };
 
-  delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+      const response = await this.apperClient.deleteRecord(this.tableName, params);
+      
+      if (!response.success) {
+        console.error("Error deleting farm:", response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.results) {
+        const successfulDeletions = response.results.filter(result => result.success);
+        const failedDeletions = response.results.filter(result => !result.success);
+        
+        if (failedDeletions.length > 0) {
+          console.error(`Failed to delete ${failedDeletions.length} farm records:${JSON.stringify(failedDeletions)}`);
+          failedDeletions.forEach(record => {
+            if (record.message) throw new Error(record.message);
+          });
+        }
+        
+        return successfulDeletions.length === 1;
+      }
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error deleting farm:", error?.response?.data?.message);
+        throw new Error(error?.response?.data?.message);
+      } else {
+        console.error("Error deleting farm:", error.message);
+        throw error;
+      }
+    }
   }
 }
 
