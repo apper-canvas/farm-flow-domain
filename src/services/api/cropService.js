@@ -40,12 +40,12 @@ await this.delay(200);
       "Potatoes": [95, 102, 98, 108]
     };
     
-    const yields = baseYields[cropType] || [75, 80, 85, 90];
+const yields = baseYields[cropType] || [75, 80, 85, 90];
     const currentYear = new Date().getFullYear();
     
-    return yields.map((yield, index) => ({
+    return yields.map((yieldValue, index) => ({
       year: currentYear - 3 + index,
-      yield: yield,
+      yield: yieldValue,
       unit: "tons/hectare",
       projected: index === yields.length - 1
     }));
