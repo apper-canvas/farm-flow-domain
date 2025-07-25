@@ -11,12 +11,44 @@ class CropService {
   }
 
   async getById(id) {
-    await this.delay(200);
+await this.delay(200);
     const crop = this.crops.find(c => c.Id === parseInt(id));
     if (!crop) {
       throw new Error("Crop not found");
     }
-    return { ...crop };
+    
+    // Enhanced crop data with timeline and yield history
+    const enhancedCrop = {
+      ...crop,
+      timeline: {
+        germination: "completed",
+        vegetative: crop.status === "growing" ? "current" : "completed",
+        flowering: crop.status === "ready" ? "completed" : "pending"
+      },
+      yieldHistory: this.generateYieldHistory(crop.cropType)
+    };
+    
+    return enhancedCrop;
+  }
+
+  generateYieldHistory(cropType) {
+    const baseYields = {
+      "Corn": [85, 92, 88, 95],
+      "Soybeans": [45, 52, 49, 55],
+      "Wheat": [65, 68, 62, 70],
+      "Tomatoes": [120, 115, 128, 135],
+      "Potatoes": [95, 102, 98, 108]
+    };
+    
+    const yields = baseYields[cropType] || [75, 80, 85, 90];
+    const currentYear = new Date().getFullYear();
+    
+    return yields.map((yield, index) => ({
+      year: currentYear - 3 + index,
+      yield: yield,
+      unit: "tons/hectare",
+      projected: index === yields.length - 1
+    }));
   }
 
   async create(cropData) {

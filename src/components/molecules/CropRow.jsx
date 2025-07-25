@@ -4,7 +4,7 @@ import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
 import { format } from "date-fns";
 
-const CropRow = ({ crop, farmName, onEdit, onDelete }) => {
+const CropRow = ({ crop, farmName, onEdit, onDelete, onViewDetails }) => {
   const getStatusVariant = (status) => {
     switch (status) {
       case "planted": return "planted";
@@ -40,7 +40,10 @@ const CropRow = ({ crop, farmName, onEdit, onDelete }) => {
         </Badge>
       </td>
       <td className="px-6 py-4">
-        <div className="flex items-center space-x-2">
+<div className="flex items-center space-x-2">
+          <Button size="sm" variant="primary" onClick={() => onViewDetails(crop)}>
+            <ApperIcon name="Eye" className="w-4 h-4" />
+          </Button>
           <Button size="sm" variant="secondary" onClick={() => onEdit(crop)}>
             <ApperIcon name="Edit" className="w-4 h-4" />
           </Button>

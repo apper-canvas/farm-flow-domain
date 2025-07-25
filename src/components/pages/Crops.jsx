@@ -3,6 +3,7 @@ import Button from "@/components/atoms/Button";
 import Select from "@/components/atoms/Select";
 import ApperIcon from "@/components/ApperIcon";
 import CropForm from "@/components/organisms/CropForm";
+import CropDetailModal from "@/components/organisms/CropDetailModal";
 import CropRow from "@/components/molecules/CropRow";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
@@ -12,15 +13,16 @@ import { farmService } from "@/services/api/farmService";
 import { toast } from "react-toastify";
 
 const Crops = () => {
-  const [crops, setCrops] = useState([]);
+const [crops, setCrops] = useState([]);
   const [farms, setFarms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [editingCrop, setEditingCrop] = useState(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedCrop, setSelectedCrop] = useState(null);
   const [filterFarm, setFilterFarm] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
-
   useEffect(() => {
     loadData();
   }, []);
@@ -73,6 +75,17 @@ const Crops = () => {
       } catch (err) {
         toast.error("Failed to delete crop");
       }
+    }
+};
+
+  const handleViewDetails = async (crop) => {
+    try {
+      const detailedCrop = await cropService.getById(crop.Id);
+      setSelectedCrop(detailedCrop);
+      setShowDetailModal(true);
+      toast.success("Crop details loaded successfully");
+    } catch (err) {
+      toast.error("Failed to load crop details");
     }
   };
 
@@ -198,19 +211,30 @@ const Crops = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredCrops.map(crop => (
-                  <CropRow
+<CropRow
                     key={crop.Id}
                     crop={crop}
                     farmName={getFarmName(crop.farmId)}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
+                    onViewDetails={handleViewDetails}
                   />
                 ))}
               </tbody>
-            </table>
+</table>
           </div>
         </div>
       )}
+
+      <CropDetailModal
+        crop={selectedCrop}
+        farmName={selectedCrop ? getFarmName(selectedCrop.farmId) : ""}
+        isOpen={showDetailModal}
+        onClose={() => {
+          setShowDetailModal(false);
+          setSelectedCrop(null);
+        }}
+      />
     </div>
   );
 };
