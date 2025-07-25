@@ -125,32 +125,30 @@ return (
               required
             />
 
-            <Select
+<Select
               label="Soil Type"
               name="soilType"
               value={formData.soilType}
               onChange={handleChange}
-              options={[
-                { value: "", label: "Select soil type" },
-                { value: "clay", label: "Clay" },
-                { value: "sandy", label: "Sandy" },
-                { value: "loamy", label: "Loamy" }
-              ]}
-            />
+            >
+              <option value="">Select soil type</option>
+              <option value="clay">Clay</option>
+              <option value="sandy">Sandy</option>
+              <option value="loamy">Loamy</option>
+            </Select>
 
-            <Select
+<Select
               label="Farm Type"
               name="farmType"
               value={formData.farmType}
               onChange={handleChange}
-              options={[
-                { value: "", label: "Select farm type" },
-                { value: "crop farm", label: "Crop Farm" },
-                { value: "dairy", label: "Dairy" },
-                { value: "poultry", label: "Poultry" },
-                { value: "mixed-use", label: "Mixed-use" }
-              ]}
-            />
+            >
+              <option value="">Select farm type</option>
+              <option value="crop farm">Crop Farm</option>
+              <option value="dairy">Dairy</option>
+              <option value="poultry">Poultry</option>
+              <option value="mixed-use">Mixed-use</option>
+            </Select>
 
             <Input
               label="Notes"
