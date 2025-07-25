@@ -12,13 +12,15 @@ class CropService {
     try {
       const params = {
         fields: [
-          { field: { Name: "Name" } },
+{ field: { Name: "Name" } },
           { field: { Name: "crop_type_c" } },
           { field: { Name: "field_c" } },
           { field: { Name: "planting_date_c" } },
           { field: { Name: "expected_harvest_c" } },
           { field: { Name: "status_c" } },
-          { field: { Name: "farm_id_c" } }
+          { field: { Name: "farm_id_c" } },
+          { field: { Name: "season_c" } },
+          { field: { Name: "crop_variety_c" } }
         ],
         orderBy: [
           { fieldName: "Id", sorttype: "DESC" }
@@ -34,13 +36,15 @@ class CropService {
 
       // Transform data to match UI expectations
       return response.data.map(crop => ({
-        Id: crop.Id,
+Id: crop.Id,
         cropType: crop.crop_type_c,
         field: crop.field_c,
         plantingDate: crop.planting_date_c,
         expectedHarvest: crop.expected_harvest_c,
         status: crop.status_c,
-        farmId: crop.farm_id_c?.Id || crop.farm_id_c
+        farmId: crop.farm_id_c?.Id || crop.farm_id_c,
+        season: crop.season_c,
+        cropVariety: crop.crop_variety_c
       }));
     } catch (error) {
       if (error?.response?.data?.message) {
@@ -56,14 +60,16 @@ class CropService {
   async getById(recordId) {
     try {
       const params = {
-        fields: [
+fields: [
           { field: { Name: "Name" } },
           { field: { Name: "crop_type_c" } },
           { field: { Name: "field_c" } },
           { field: { Name: "planting_date_c" } },
           { field: { Name: "expected_harvest_c" } },
           { field: { Name: "status_c" } },
-          { field: { Name: "farm_id_c" } }
+          { field: { Name: "farm_id_c" } },
+          { field: { Name: "season_c" } },
+          { field: { Name: "crop_variety_c" } }
         ]
       };
 
@@ -77,13 +83,15 @@ class CropService {
       // Transform data and add enhanced features
       const crop = response.data;
       const enhancedCrop = {
-        Id: crop.Id,
+Id: crop.Id,
         cropType: crop.crop_type_c,
         field: crop.field_c,
         plantingDate: crop.planting_date_c,
         expectedHarvest: crop.expected_harvest_c,
         status: crop.status_c,
         farmId: crop.farm_id_c?.Id || crop.farm_id_c,
+        season: crop.season_c,
+        cropVariety: crop.crop_variety_c,
         timeline: {
           germination: "completed",
           vegetative: crop.status_c === "growing" ? "current" : "completed",
@@ -127,14 +135,16 @@ class CropService {
   async create(cropData) {
     try {
       const params = {
-        records: [{
+records: [{
           Name: cropData.cropType,
           crop_type_c: cropData.cropType,
           field_c: cropData.field,
           planting_date_c: cropData.plantingDate,
           expected_harvest_c: cropData.expectedHarvest,
           status_c: cropData.status,
-          farm_id_c: parseInt(cropData.farmId)
+          farm_id_c: parseInt(cropData.farmId),
+          season_c: cropData.season,
+          crop_variety_c: cropData.cropVariety
         }]
       };
 
@@ -162,13 +172,15 @@ class CropService {
         if (successfulRecords.length > 0) {
           const crop = successfulRecords[0].data;
           return {
-            Id: crop.Id,
+Id: crop.Id,
             cropType: crop.crop_type_c,
             field: crop.field_c,
             plantingDate: crop.planting_date_c,
             expectedHarvest: crop.expected_harvest_c,
             status: crop.status_c,
-            farmId: crop.farm_id_c?.Id || crop.farm_id_c
+            farmId: crop.farm_id_c?.Id || crop.farm_id_c,
+            season: crop.season_c,
+            cropVariety: crop.crop_variety_c
           };
         }
       }
@@ -187,14 +199,16 @@ class CropService {
     try {
       const params = {
         records: [{
-          Id: parseInt(id),
+Id: parseInt(id),
           Name: cropData.cropType,
           crop_type_c: cropData.cropType,
           field_c: cropData.field,
           planting_date_c: cropData.plantingDate,
           expected_harvest_c: cropData.expectedHarvest,
           status_c: cropData.status,
-          farm_id_c: parseInt(cropData.farmId)
+          farm_id_c: parseInt(cropData.farmId),
+          season_c: cropData.season,
+          crop_variety_c: cropData.cropVariety
         }]
       };
 
@@ -221,14 +235,16 @@ class CropService {
         
         if (successfulUpdates.length > 0) {
           const crop = successfulUpdates[0].data;
-          return {
+return {
             Id: crop.Id,
             cropType: crop.crop_type_c,
             field: crop.field_c,
             plantingDate: crop.planting_date_c,
             expectedHarvest: crop.expected_harvest_c,
             status: crop.status_c,
-            farmId: crop.farm_id_c?.Id || crop.farm_id_c
+            farmId: crop.farm_id_c?.Id || crop.farm_id_c,
+            season: crop.season_c,
+            cropVariety: crop.crop_variety_c
           };
         }
       }

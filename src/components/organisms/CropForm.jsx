@@ -7,13 +7,15 @@ import ApperIcon from "@/components/ApperIcon";
 import { format } from "date-fns";
 
 const CropForm = ({ crop, farms, onSubmit, onCancel }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     farmId: "",
     cropType: "",
     field: "",
     plantingDate: "",
     expectedHarvest: "",
-    status: "planted"
+    status: "planted",
+    season: "",
+    cropVariety: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -23,14 +25,16 @@ const CropForm = ({ crop, farms, onSubmit, onCancel }) => {
   ];
 
   useEffect(() => {
-    if (crop) {
+if (crop) {
       setFormData({
         farmId: crop.farmId,
         cropType: crop.cropType,
         field: crop.field,
         plantingDate: format(new Date(crop.plantingDate), "yyyy-MM-dd"),
         expectedHarvest: format(new Date(crop.expectedHarvest), "yyyy-MM-dd"),
-        status: crop.status
+        status: crop.status,
+        season: crop.season || "",
+        cropVariety: crop.cropVariety || ""
       });
     }
   }, [crop]);
@@ -137,9 +141,30 @@ const CropForm = ({ crop, farms, onSubmit, onCancel }) => {
             value={formData.expectedHarvest}
             onChange={handleChange}
             required
-          />
+/>
         </div>
 
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Select
+            label="Season"
+            name="season"
+            value={formData.season}
+            onChange={handleChange}
+          >
+            <option value="">Select season</option>
+            <option value="Kharif">Kharif</option>
+            <option value="Rabi">Rabi</option>
+            <option value="Dry">Dry</option>
+          </Select>
+
+          <Input
+            label="Crop Variety"
+            name="cropVariety"
+            value={formData.cropVariety}
+            onChange={handleChange}
+            placeholder="e.g., Hybrid Corn, Basmati Rice"
+          />
+        </div>
         <Select
           label="Status"
           name="status"
