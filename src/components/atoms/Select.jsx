@@ -10,9 +10,10 @@ const Select = React.forwardRef(({
 }, ref) => {
   return (
     <div className="space-y-2">
-      {label && (
+{label && (
         <label className="block text-sm font-medium text-gray-700">
           {label}
+          {props.required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
       <select
