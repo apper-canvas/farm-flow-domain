@@ -142,9 +142,7 @@ records: [{
           planting_date_c: cropData.plantingDate,
           expected_harvest_c: cropData.expectedHarvest,
           status_c: cropData.status,
-          farm_id_c: parseInt(cropData.farmId),
-          season_c: cropData.season,
-          crop_variety_c: cropData.cropVariety
+          farm_id_c: parseInt(cropData.farmId)
         }]
       };
 
@@ -198,7 +196,7 @@ Id: crop.Id,
   async update(id, cropData) {
     try {
       const params = {
-        records: [{
+records: [{
 Id: parseInt(id),
           Name: cropData.cropType,
           crop_type_c: cropData.cropType,
@@ -206,9 +204,7 @@ Id: parseInt(id),
           planting_date_c: cropData.plantingDate,
           expected_harvest_c: cropData.expectedHarvest,
           status_c: cropData.status,
-          farm_id_c: parseInt(cropData.farmId),
-          season_c: cropData.season,
-          crop_variety_c: cropData.cropVariety
+          farm_id_c: parseInt(cropData.farmId)
         }]
       };
 
