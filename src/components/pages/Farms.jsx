@@ -110,7 +110,7 @@ const Farms = () => {
         </Button>
       </div>
 
-      {/* Form */}
+{/* Modal */}
       {showForm && (
         <FarmForm
           farm={editingFarm}
@@ -121,7 +121,6 @@ const Farms = () => {
           }}
         />
       )}
-
       {/* Farms Grid */}
       {farms.length === 0 ? (
         <Empty
