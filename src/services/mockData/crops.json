@@ -1,0 +1,47 @@
+[
+  {
+    "Id": 1,
+    "farmId": 1,
+    "cropType": "Corn",
+    "field": "North Field A",
+    "plantingDate": "2024-04-15T00:00:00.000Z",
+    "expectedHarvest": "2024-09-15T00:00:00.000Z",
+    "status": "growing"
+  },
+  {
+    "Id": 2,
+    "farmId": 1,
+    "cropType": "Soybeans",
+    "field": "South Field B",
+    "plantingDate": "2024-05-01T00:00:00.000Z",
+    "expectedHarvest": "2024-10-01T00:00:00.000Z",
+    "status": "growing"
+  },
+  {
+    "Id": 3,
+    "farmId": 2,
+    "cropType": "Wheat",
+    "field": "East Section",
+    "plantingDate": "2024-03-20T00:00:00.000Z",
+    "expectedHarvest": "2024-07-20T00:00:00.000Z",
+    "status": "ready"
+  },
+  {
+    "Id": 4,
+    "farmId": 2,
+    "cropType": "Tomatoes",
+    "field": "Greenhouse 1",
+    "plantingDate": "2024-05-15T00:00:00.000Z",
+    "expectedHarvest": "2024-08-15T00:00:00.000Z",
+    "status": "growing"
+  },
+  {
+    "Id": 5,
+    "farmId": 3,
+    "cropType": "Potatoes",
+    "field": "West Field",
+    "plantingDate": "2024-04-01T00:00:00.000Z",
+    "expectedHarvest": "2024-08-01T00:00:00.000Z",
+    "status": "growing"
+  }
+]

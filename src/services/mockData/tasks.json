@@ -1,0 +1,62 @@
+[
+  {
+    "Id": 1,
+    "farmId": 1,
+    "cropId": 1,
+    "title": "Water corn field after dry spell",
+    "type": "watering",
+    "dueDate": "2024-12-28T00:00:00.000Z",
+    "completed": false,
+    "priority": "high"
+  },
+  {
+    "Id": 2,
+    "farmId": 1,
+    "cropId": 2,
+    "title": "Apply fertilizer to soybean crop",
+    "type": "fertilizing",
+    "dueDate": "2024-12-30T00:00:00.000Z",
+    "completed": false,
+    "priority": "medium"
+  },
+  {
+    "Id": 3,
+    "farmId": 2,
+    "cropId": 3,
+    "title": "Harvest wheat - ready for collection",
+    "type": "harvesting",
+    "dueDate": "2024-12-29T00:00:00.000Z",
+    "completed": false,
+    "priority": "high"
+  },
+  {
+    "Id": 4,
+    "farmId": 2,
+    "cropId": 4,
+    "title": "Check tomato plants for pests",
+    "type": "inspection",
+    "dueDate": "2025-01-02T00:00:00.000Z",
+    "completed": false,
+    "priority": "medium"
+  },
+  {
+    "Id": 5,
+    "farmId": 3,
+    "cropId": 5,
+    "title": "Weed potato field",
+    "type": "weeding",
+    "dueDate": "2025-01-05T00:00:00.000Z",
+    "completed": false,
+    "priority": "low"
+  },
+  {
+    "Id": 6,
+    "farmId": 1,
+    "cropId": null,
+    "title": "Repair irrigation system",
+    "type": "maintenance",
+    "dueDate": "2024-12-27T00:00:00.000Z",
+    "completed": true,
+    "priority": "high"
+  }
+]

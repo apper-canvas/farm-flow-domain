@@ -1,0 +1,61 @@
+@import 'react-toastify/dist/ReactToastify.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.Toastify__toast {
+  font-family: 'Inter', sans-serif;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(135deg, #43A047 0%, #66BB6A 100%);
+}
+
+.Toastify__toast--error {
+  background: linear-gradient(135deg, #E53935 0%, #EF5350 100%);
+}
+
+.Toastify__toast--warning {
+  background: linear-gradient(135deg, #FB8C00 0%, #FFA726 100%);
+}
+
+.Toastify__toast--info {
+  background: linear-gradient(135deg, #1976D2 0%, #42A5F5 100%);
+}
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F5F7F0;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .card-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .gradient-bg {
+    background: linear-gradient(135deg, #2D5016 0%, #3D6B20 100%);
+  }
+  
+  .harvest-gradient {
+    background: linear-gradient(135deg, #FFA726 0%, #FFB74D 100%);
+  }
+  
+  .leaf-gradient {
+    background: linear-gradient(135deg, #7CB342 0%, #8BC34A 100%);
+  }
+}

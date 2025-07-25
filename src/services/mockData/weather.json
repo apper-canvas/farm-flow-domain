@@ -1,0 +1,41 @@
+{
+  "current": {
+    "location": "Default Location",
+    "temperature": 72,
+    "condition": "Partly Cloudy",
+    "humidity": 65,
+    "windSpeed": 8
+  },
+  "forecast": [
+    {
+      "day": "Today",
+      "condition": "Partly Cloudy",
+      "high": 76,
+      "low": 58
+    },
+    {
+      "day": "Tomorrow",
+      "condition": "Sunny",
+      "high": 80,
+      "low": 62
+    },
+    {
+      "day": "Sat",
+      "condition": "Cloudy",
+      "high": 74,
+      "low": 56
+    },
+    {
+      "day": "Sun",
+      "condition": "Rainy",
+      "high": 68,
+      "low": 52
+    },
+    {
+      "day": "Mon",
+      "condition": "Sunny",
+      "high": 78,
+      "low": 60
+    }
+  ]
+}
