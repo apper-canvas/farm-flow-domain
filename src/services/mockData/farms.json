@@ -5,7 +5,11 @@
     "size": 150,
     "sizeUnit": "acres",
     "location": "Riverside County, CA",
-    "createdAt": "2024-01-15T08:00:00.000Z"
+    "createdAt": "2024-01-15T08:00:00.000Z",
+    "contactNumber": "5551234567",
+    "gpsCoordinates": "33.7175, -116.2023",
+    "waterResource": "canal",
+    "machineryAvailable": "Available"
   },
   {
     "Id": 2,
@@ -13,7 +17,11 @@
     "size": 85,
     "sizeUnit": "acres",
     "location": "Franklin County, OH",
-    "createdAt": "2024-02-20T10:30:00.000Z"
+    "createdAt": "2024-02-20T10:30:00.000Z",
+    "contactNumber": "5559876543",
+    "gpsCoordinates": "39.9612, -82.9988",
+    "waterResource": "borewell",
+    "machineryAvailable": "Available"
   },
   {
     "Id": 3,
@@ -21,6 +29,10 @@
     "size": 200,
     "sizeUnit": "acres",
     "location": "Lancaster County, NE",
-    "createdAt": "2024-03-10T14:15:00.000Z"
+    "createdAt": "2024-03-10T14:15:00.000Z",
+    "contactNumber": "5555551234",
+    "gpsCoordinates": "40.8136, -96.7026",
+    "waterResource": "rainwater",
+    "machineryAvailable": "Not Available"
   }
 ]

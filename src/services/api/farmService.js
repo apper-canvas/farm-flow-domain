@@ -19,7 +19,11 @@ class FarmService {
           { field: { Name: "created_at_c" } },
           { field: { Name: "soil_type_c" } },
           { field: { Name: "farm_type_c" } },
-          { field: { Name: "notes_c" } }
+          { field: { Name: "notes_c" } },
+          { field: { Name: "contact_number_c" } },
+          { field: { Name: "gps_coordinates_c" } },
+          { field: { Name: "water_resource_c" } },
+          { field: { Name: "machinery_available_c" } }
         ],
         orderBy: [
           { fieldName: "Id", sorttype: "DESC" }
@@ -43,7 +47,11 @@ return response.data.map(farm => ({
         createdAt: farm.created_at_c,
         soilType: farm.soil_type_c,
         farmType: farm.farm_type_c,
-        notes: farm.notes_c
+        notes: farm.notes_c,
+        contactNumber: farm.contact_number_c,
+        gpsCoordinates: farm.gps_coordinates_c,
+        waterResource: farm.water_resource_c,
+        machineryAvailable: farm.machinery_available_c
       }));
     } catch (error) {
       if (error?.response?.data?.message) {
@@ -67,7 +75,11 @@ fields: [
           { field: { Name: "created_at_c" } },
           { field: { Name: "soil_type_c" } },
           { field: { Name: "farm_type_c" } },
-          { field: { Name: "notes_c" } }
+          { field: { Name: "notes_c" } },
+          { field: { Name: "contact_number_c" } },
+          { field: { Name: "gps_coordinates_c" } },
+          { field: { Name: "water_resource_c" } },
+          { field: { Name: "machinery_available_c" } }
         ]
       };
 
@@ -89,7 +101,11 @@ return {
         createdAt: farm.created_at_c,
         soilType: farm.soil_type_c,
         farmType: farm.farm_type_c,
-        notes: farm.notes_c
+        notes: farm.notes_c,
+        contactNumber: farm.contact_number_c,
+        gpsCoordinates: farm.gps_coordinates_c,
+        waterResource: farm.water_resource_c,
+        machineryAvailable: farm.machinery_available_c
       };
     } catch (error) {
       if (error?.response?.data?.message) {
@@ -113,7 +129,11 @@ records: [{
           created_at_c: new Date().toISOString(),
           soil_type_c: farmData.soilType,
           farm_type_c: farmData.farmType,
-          notes_c: farmData.notes
+          notes_c: farmData.notes,
+          contact_number_c: farmData.contactNumber,
+          gps_coordinates_c: farmData.gpsCoordinates,
+          water_resource_c: farmData.waterResource,
+          machinery_available_c: farmData.machineryAvailable
         }]
       };
 
@@ -149,7 +169,11 @@ return {
             createdAt: farm.created_at_c,
             soilType: farm.soil_type_c,
             farmType: farm.farm_type_c,
-            notes: farm.notes_c
+            notes: farm.notes_c,
+            contactNumber: farm.contact_number_c,
+            gpsCoordinates: farm.gps_coordinates_c,
+            waterResource: farm.water_resource_c,
+            machineryAvailable: farm.machinery_available_c
           };
         }
       }
@@ -168,14 +192,18 @@ return {
     try {
       const params = {
 records: [{
-          Id: parseInt(id),
+Id: parseInt(id),
           Name: farmData.name,
           size_c: farmData.size,
           size_unit_c: farmData.sizeUnit,
           location_c: farmData.location,
           soil_type_c: farmData.soilType,
           farm_type_c: farmData.farmType,
-          notes_c: farmData.notes
+          notes_c: farmData.notes,
+          contact_number_c: farmData.contactNumber,
+          gps_coordinates_c: farmData.gpsCoordinates,
+          water_resource_c: farmData.waterResource,
+          machinery_available_c: farmData.machineryAvailable
         }]
       };
 
@@ -211,7 +239,11 @@ return {
             createdAt: farm.created_at_c,
             soilType: farm.soil_type_c,
             farmType: farm.farm_type_c,
-            notes: farm.notes_c
+            notes: farm.notes_c,
+            contactNumber: farm.contact_number_c,
+            gpsCoordinates: farm.gps_coordinates_c,
+            waterResource: farm.water_resource_c,
+            machineryAvailable: farm.machinery_available_c
           };
         }
       }

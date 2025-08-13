@@ -154,7 +154,7 @@ const Farms = () => {
                 </div>
               </div>
 
-              <div className="space-y-3">
+<div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600">Size</span>
                   <span className="font-semibold text-gray-900">
@@ -166,6 +166,34 @@ const Farms = () => {
                   <span className="text-sm text-gray-600">Active Crops</span>
                   <Badge variant="planted">
                     {getActiveCropsCount(farm.Id)} crops
+                  </Badge>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">Contact Number</span>
+                  <span className="font-semibold text-gray-900">
+                    {farm.contactNumber || 'N/A'}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">GPS Coordinates</span>
+                  <span className="font-semibold text-gray-900 text-xs">
+                    {farm.gpsCoordinates || 'N/A'}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">Water Resource</span>
+                  <Badge variant={farm.waterResource ? "success" : "secondary"}>
+                    {farm.waterResource || 'Not specified'}
+                  </Badge>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">Machinery</span>
+                  <Badge variant={farm.machineryAvailable === 'Available' ? "success" : "secondary"}>
+                    {farm.machineryAvailable || 'Not specified'}
                   </Badge>
                 </div>
 

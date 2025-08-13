@@ -13,12 +13,16 @@ const [formData, setFormData] = useState({
     location: "",
     soilType: "",
     farmType: "",
-    notes: ""
+    notes: "",
+    contactNumber: "",
+    gpsCoordinates: "",
+    waterResource: "",
+    machineryAvailable: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
 useEffect(() => {
-    if (farm) {
+if (farm) {
       setFormData({
         name: farm.name,
         size: farm.size.toString(),
@@ -26,7 +30,11 @@ useEffect(() => {
         location: farm.location,
         soilType: farm.soilType || "",
         farmType: farm.farmType || "",
-        notes: farm.notes || ""
+        notes: farm.notes || "",
+        contactNumber: farm.contactNumber || "",
+        gpsCoordinates: farm.gpsCoordinates || "",
+        waterResource: farm.waterResource || "",
+        machineryAvailable: farm.machineryAvailable || ""
       });
     }
   }, [farm]);
@@ -41,14 +49,18 @@ try {
       });
       
 if (!farm) {
-        setFormData({
+setFormData({
           name: "",
           size: "",
           sizeUnit: "acres",
           location: "",
           soilType: "",
           farmType: "",
-          notes: ""
+          notes: "",
+          contactNumber: "",
+          gpsCoordinates: "",
+          waterResource: "",
+          machineryAvailable: ""
         });
       }
     } finally {
@@ -125,7 +137,47 @@ return (
               required
             />
 
-<Select
+            <Input
+              label="Contact Number"
+              name="contactNumber"
+              type="number"
+              value={formData.contactNumber}
+              onChange={handleChange}
+              placeholder="e.g., 1234567890"
+            />
+
+            <Input
+              label="GPS Coordinates"
+              name="gpsCoordinates"
+              value={formData.gpsCoordinates}
+              onChange={handleChange}
+              placeholder="e.g., 40.7128, -74.0060"
+            />
+
+            <Select
+              label="Water Resource"
+              name="waterResource"
+              value={formData.waterResource}
+              onChange={handleChange}
+            >
+              <option value="">Select water resource</option>
+              <option value="canal">Canal</option>
+              <option value="borewell">Borewell</option>
+              <option value="rainwater">Rainwater</option>
+            </Select>
+
+            <Select
+              label="Machinery Available"
+              name="machineryAvailable"
+              value={formData.machineryAvailable}
+              onChange={handleChange}
+            >
+              <option value="">Select machinery status</option>
+              <option value="Available">Available</option>
+              <option value="Not Available">Not Available</option>
+            </Select>
+
+            <Select
               label="Soil Type"
               name="soilType"
               value={formData.soilType}
@@ -137,7 +189,7 @@ return (
               <option value="loamy">Loamy</option>
             </Select>
 
-<Select
+            <Select
               label="Farm Type"
               name="farmType"
               value={formData.farmType}
